@@ -5,15 +5,21 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3005",
     "build": "next build",
     "export": "next build && next export",
     "lint": "next lint",
     "start": "next start"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@tanstack/react-query": "^5.90.5",
+    "axios": "^1.12.2",
+    "formik": "^2.4.6",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.546.0",
     "marked": "^4.2.4",
     "next": "13.0.6",
     "next-mdx-remote": "^4.2.0",
@@ -22,9 +28,11 @@
     "react-gtm-module": "^2.0.11",
     "react-icons": "^4.7.1",
     "react-lite-youtube-embed": "^2.3.52",
+    "react-toastify": "^11.0.5",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
-    "swiper": "^8.4.5"
+    "swiper": "^8.4.5",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",

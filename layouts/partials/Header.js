@@ -1,9 +1,32 @@
 import Logo from "@components/Logo";
 import config from "@config/config.json";
 import menu from "@config/menu.json";
+import { useRegister } from "@hooks/useRegister";
+import useToggleDialog from "@hooks/useToggleDialog";
+import { Commons } from "@layouts/components/commons";
+import { Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+
+import * as Yup from "yup";
+
+const nameRegex = /^[\p{L}\s.'-]{2,100}$/u;
+const phoneRegex = /^(?:\+84|0)\d{9}$/;
+
+const schema = Yup.object({
+  username: Yup.string()
+    .trim()
+    .required("Vui lòng nhập họ và tên")
+    .matches(nameRegex, "Tên không hợp lệ")
+    .min(2)
+    .max(100),
+  phone: Yup.string()
+    .trim()
+    .required("Vui lòng nhập số điện thoại")
+    .matches(phoneRegex, "Số điện thoại không hợp lệ"),
+});
 
 const Header = () => {
   //router
@@ -18,9 +41,21 @@ const Header = () => {
   // logo source
   const { logo } = config.site;
   const { enable, label, link } = config.nav_button;
+  const { shouldRender, open, toggle } = useToggleDialog();
+  const { mutateAsync: register, isPending } = useRegister();
+
+  const onRegister = async (values) => {
+    await register(values, {
+      onSuccess: () => {
+        toggle();
+        console.log("hello")
+        // toast.success({type:"success",})
+      },
+    });
+  };
 
   return (
-    <header className="header">
+    <header className="header fixed z-10 w-full">
       <nav className="navbar container">
         {/* logo */}
         <div className="order-0">
@@ -30,7 +65,7 @@ const Header = () => {
         {/* navbar toggler */}
         <button
           id="show-button"
-          className="order-2 flex cursor-pointer items-center md:hidden md:order-1"
+          className="order-2 flex cursor-pointer items-center md:order-1 md:hidden"
           onClick={() => setNavOpen(!navOpen)}
         >
           {navOpen ? (
@@ -58,7 +93,7 @@ const Header = () => {
         >
           <ul className="navbar-nav block w-full md:flex md:w-auto lg:space-x-2">
             {main.map((menu, i) => (
-              <React.Fragment key={`menu-${i}`}>
+              <React.Fragment key={`menu-${i}`} >
                 {menu.hasChildren ? (
                   <li className="nav-item nav-dropdown group relative">
                     <span className="nav-link inline-flex items-center">
@@ -71,7 +106,8 @@ const Header = () => {
                       {menu.children.map((child, i) => (
                         <li className="nav-dropdown-item" key={`children-${i}`}>
                           <Link
-                            href={child.url}
+                            // href={child.url}
+                            href={menu.href}
                             className="nav-dropdown-link block"
                           >
                             {child.name}
@@ -83,10 +119,11 @@ const Header = () => {
                 ) : (
                   <li className="nav-item">
                     <Link
-                      href={menu.url}
+                      // href={menu.url}
+                      href={menu?.href}
                       onClick={() => setNavOpen(false)}
                       className={`nav-link block ${
-                        router.asPath === menu.url ? "nav-link-active" : ""
+                        router.asPath.includes(menu.href)  ? "nav-link-active" : ""
                       }`}
                     >
                       {menu.name}
@@ -109,11 +146,53 @@ const Header = () => {
           </ul>
         </div>
         {enable && (
-          <div className="d-flex order-1 ml-auto hidden min-w-[200px] items-center justify-end md:ml-0 md:flex md:order-2">
-            <Link className="btn btn-primary z-0 py-[14px]" href={link} rel="">
+          <div className="d-flex order-1 ml-auto hidden min-w-[200px] items-center justify-end md:order-2 md:ml-0 md:flex">
+            <button
+              className="btn btn-primary z-0 py-[14px]"
+              onClick={toggle}
+              // href={link}
+              // rel=""
+            >
               {label}
-            </Link>
+            </button>
           </div>
+        )}
+        {shouldRender && (
+          <Commons.Modal open={open} onClose={toggle} title="Đăng ký tư vấn">
+            <Formik
+              initialValues={{
+                username: "",
+                phone: undefined,
+              }}
+              onSubmit={onRegister}
+              validationSchema={schema}
+            >
+              {({ handleSubmit }) => (
+                <Form>
+                  <Commons.Input
+                    name="username"
+                    label="Họ và tên"
+                    placeholder="Nhập họ và tên"
+                  />
+                  <Commons.Input
+                    name="phone"
+                    label="Số điện thoại"
+                    placeholder="Nhập số điện thoại"
+                  />
+                  <Commons.Button
+                    className="btn btn-primary w-full"
+                    onClick={() => {
+                      handleSubmit();
+                    }}
+                    loading={isPending}
+                    disabled={isPending}
+                  >
+                    Đăng ký tư vấn
+                  </Commons.Button>
+                </Form>
+              )}
+            </Formik>
+          </Commons.Modal>
         )}
       </nav>
     </header>

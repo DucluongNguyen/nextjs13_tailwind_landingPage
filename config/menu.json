@@ -1,73 +1,47 @@
 {
   "main": [
     {
-      "name": "Home",
-      "url": "/"
+      "name": "Trang chủ",
+      "url": "/",
+      "href":"#home"
+
     },
     {
-      "name": "Blog",
-      "url": "/blogs"
+      "name": "Vấn đề",
+      "url": "/blogs",
+      "href":"#problem"
     },
     {
-      "name": "Pricing",
-      "url": "/pricing"
+      "name": "Hình thức học",
+      "url": "/pricing",
+      "href":"#learningMode"
+
     },
     {
-      "name": "Contact",
-      "url": "/contact"
-    },
-    {
-      "name": "FAQ",
-      "url": "/faq"
+      "name": "Cam kết",
+      "url": "/contact",
+      "href":"#commited"
+
     }
   ],
   "footer": [
     {
-      "name": "Company",
+      "name": "Thông tin liên hệ",
       "menu": [
         {
-          "text": "Pricing",
-          "url": "/pricing"
-        },
-        {
-          "text": "Quick Start",
-          "url": "#"
-        }
-      ]
-    },
-    {
-      "name": "Product",
-      "menu": [
-        {
-          "text": "Features",
+          "text": "Email: huykyson@gmail.com",
           "url": "#"
         },
         {
-          "text": "Platform",
+          "text": "Hotline: 0983.738.114",
           "url": "#"
         },
         {
-          "text": "Pricing",
-          "url": "/pricing"
-        }
-      ]
-    },
-    {
-      "name": "Support",
-      "menu": [
-        {
-          "text": "FAQ",
-          "url": "/faq"
-        },
-        {
-          "text": "Privacy Policy",
-          "url": "#"
-        },
-        {
-          "text": "Terms & Conditions",
+          "text": "Địa chỉ: Số 30, Phạm Văn Đồng, Cầu Giấy, Hà Nội (Gần ĐHSP Hà Nội).",
           "url": "#"
         }
       ]
     }
+   
   ]
 }

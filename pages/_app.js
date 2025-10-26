@@ -4,6 +4,24 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import TagManager from "react-gtm-module";
 import "styles/style.scss";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastContainer, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
+
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = ({ Component, pageProps }) => {
   // default theme setup
@@ -35,25 +53,41 @@ const App = ({ Component, pageProps }) => {
 
   return (
     <>
-      <Head>
-        {/* google font css */}
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="true"
-        />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `${fontcss}`,
-          }}
-        />
-        {/* responsive meta */}
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=5"
-        />
-      </Head>
-      <Component {...pageProps} />
+      <QueryClientProvider client={client}>
+        <Head>
+          {/* google font css */}
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossOrigin="true"
+          />
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `${fontcss}`,
+            }}
+          />
+          {/* responsive meta */}
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=5"
+          />
+        </Head>
+        <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop
+        // closeButton={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        // toastClassName={classes.eachToast}
+        transition={Zoom}
+      />
+        <Component {...pageProps} />
+      </QueryClientProvider>
     </>
   );
 };

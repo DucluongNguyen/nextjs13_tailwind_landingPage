@@ -1,162 +1,79 @@
 import config from "@config/config.json";
+import { useGSAP } from "@gsap/react";
 import Base from "@layouts/Baseof";
-import Cta from "@layouts/components/Cta";
-import { markdownify } from "@lib/utils/textConverter";
-import Image from "next/image";
-import Link from "next/link";
-import { Autoplay, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import ClassLevelSection from "@layouts/components/ClassLevelSection";
+import CommitmentSection from "@layouts/components/CommitmentSection";
+import GallerySection from "@layouts/components/GallerySection";
+import LearningModesSection from "@layouts/components/LearningModesSection";
+import MathCourseSection from "@layouts/components/MathCourseSection";
+import ParentFeedback from "@layouts/components/ParentFeedback";
+import ProblemSection from "@layouts/components/ProblemSection";
+import ProfitSection from "@layouts/components/ProfitSection";
+import ReasonSection from "@layouts/components/ReasonSection";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 import "swiper/swiper.min.css";
 import { getListPage } from "../lib/contentParser";
+import useScrollReveal from "@hooks/useScrollReveal";
+import useToggleDialog from "@hooks/useToggleDialog";
+import { Commons } from "@layouts/components/commons";
 
 const Home = ({ frontmatter }) => {
-  const { banner, feature, services, workflow, call_to_action } = frontmatter;
   const { title } = config.site;
+  const ref = useRef();
+  const { shouldRender, toggle, open } = useToggleDialog();
+
+  const { contextSafe } = useGSAP(
+    () => {
+      const panels = gsap.utils.toArray(".sectionScroll");
+
+      const totalHeight =
+        panels.length * window.innerHeight - window.innerHeight;
+
+      // Snap scroll theo từng panel
+      ScrollTrigger.create({
+        start: 0,
+        // end: "bottom top",
+        end: `+=${totalHeight}`,
+        snap: {
+          snapTo: 1 / (panels.length - 1),
+          duration: 3,
+          delay: 0.1,
+          ease: "power1.inOut",
+        },
+        pin: false,
+      });
+    },
+    { scope: ref }
+  );
 
   return (
     <Base title={title}>
-      {/* Banner */}
-      <section className="section pb-[50px]">
-        <div className="container">
-          <div className="row text-center">
-            <div className="mx-auto lg:col-10">
-              <h1 className="font-primary font-bold">{banner.title}</h1>
-              <p className="mt-4">{markdownify(banner.content)}</p>
-              {banner.button.enable && (
-                <Link
-                  className="btn btn-primary mt-4"
-                  href={banner.button.link}
-                  rel={banner.button.rel}
-                >
-                  {banner.button.label}
-                </Link>
-              )}
-              <Image
-                className="mx-auto mt-12"
-                src={banner.image}
-                width={750}
-                height={390}
-                alt="banner image"
-                priority
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <div ref={ref}>
+        <MathCourseSection />
 
-      {/* Features */}
-      <section className="section bg-theme-light">
-        <div className="container">
-          <div className="text-center">
-            <h2>{markdownify(feature.title)}</h2>
-          </div>
-          <div className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
-            {feature.features.map((item, i) => (
-              <div
-                className="feature-card rounded-xl bg-white p-5 pb-8 text-center"
-                key={`feature-${i}`}
-              >
-                {item.icon && (
-                  <Image
-                    className="mx-auto"
-                    src={item.icon}
-                    width={30}
-                    height={30}
-                    alt=""
-                  />
-                )}
-                <div className="mt-4">
-                  {markdownify(item.name, "h3", "h5")}
-                  <p className="mt-3">{item.content}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        <ProblemSection />
 
-      {/* services */}
-      {services.map((service, index) => {
-        const isOdd = index % 2 > 0;
-        return (
-          <section
-            key={`service-${index}`}
-            className={`section ${isOdd && "bg-theme-light"}`}
-          >
-            <div className="container">
-              <div className="items-center gap-8 md:grid md:grid-cols-2">
-                {/* Carousel */}
-                <div className={`service-carousel ${!isOdd && "md:order-2"}`}>
-                  <Swiper
-                    modules={[Autoplay, Pagination]}
-                    pagination={
-                      service.images.length > 1 ? { clickable: true } : false
-                    }
-                    autoplay={{
-                      delay: 5000,
-                      disableOnInteraction: false,
-                    }}
-                    init={service?.images > 1 ? false : true}
-                  >
-                    {/* Slides */}
-                    {service?.images.map((slide, index) => (
-                      <SwiperSlide key={index}>
-                        <Image src={slide} alt="" width={600} height={500} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
+        <LearningModesSection />
 
-                {/* Content */}
-                <div
-                  className={`service-content mt-5 md:mt-0 ${
-                    !isOdd && "md:order-1"
-                  }`}
-                >
-                  <h2 className="font-bold leading-[40px]">{service?.title}</h2>
-                  <p className="mt-4 mb-2">{service?.content}</p>
-                  {service.button.enable && (
-                    <Link
-                      href={service?.button.link}
-                      className="cta-link inline-flex items-center text-primary"
-                    >
-                      {service?.button.label}
-                      <Image
-                        className="ml-1"
-                        src="/images/arrow-right.svg"
-                        width={18}
-                        height={14}
-                        alt="arrow"
-                      />
-                    </Link>
-                  )}
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      })}
+        <ReasonSection />
 
-      {/* workflow */}
-      <section className="section pb-0">
-        <div className="mb-8 text-center">
-          {markdownify(
-            workflow.title,
-            "h2",
-            "mx-auto max-w-[400px] font-bold leading-[44px]"
-          )}
-          {markdownify(workflow.description, "p", "mt-3")}
-        </div>
-        <Image
-          src={workflow.image}
-          alt="workflow image"
-          width={1920}
-          height={296}
-        />
-      </section>
+        <ClassLevelSection />
 
-      {/* Cta */}
-      <Cta cta={call_to_action} />
+        <ProfitSection />
+
+        <CommitmentSection />
+
+        <GallerySection />
+
+        <ParentFeedback />
+        {shouldRender && (
+          <Commons.Modal open={open} onClose={toggle}>
+            Hello
+          </Commons.Modal>
+        )}
+      </div>
     </Base>
   );
 };

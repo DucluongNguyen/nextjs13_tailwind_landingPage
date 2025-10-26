@@ -1,10 +1,10 @@
 {
   "site": {
-    "title": "Bigspring Light Nextjs",
+    "title": "Ôn luyện toán",
     "base_url": "/",
-    "favicon": "/images/favicon.png",
-    "logo": "/images/logo.png",
-    "logo_width": "200",
+    "favicon": "/images/onluyentoan_logo.png",
+    "logo": "/images/onluyentoan_logo.png",
+    "logo_width": "56",
     "logo_height": "48",
     "logo_text": "Bigspring Light"
   },
@@ -17,15 +17,15 @@
 
   "nav_button": {
     "enable": true,
-    "label": "Get Started",
+    "label": "Đăng ký tư vấn",
     "link": "/contact"
   },
 
   "params": {
     "contact_form_action": "",
     "tag_manager_id": "",
-    "footer_content": "Lorem ipsum dolor sit amet, consectetur elit. Consjat tristique eget amet, tempus eu at cttur.",
-    "copyright": "Designed and Developed By [Themefisher](https://themefisher.com/)"
+    "footer_content": "Đánh thức đam mê <br/>Chắp cánh ước mơ",
+    "copyright": "Copyright © 2024 Thầy Huy ®. All rights reserved."
   },
 
   "metadata": {

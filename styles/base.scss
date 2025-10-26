@@ -48,3 +48,20 @@ h6,
 code {
   @apply before:hidden after:hidden;
 }
+
+.swiper-pagination {
+  bottom: 0 !important;
+  z-index: 10 !important;
+}
+
+.swiper-slide img {
+  display: block;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.text-animation-section-1, .text-animation-section-3, .text-animation-section-2, .text-animation-section-4, .text-animation-section-5, .text-animation-section-6, .text-animation-section-7, .text-animation-section-9 {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  opacity: 0;
+  transform: translateY(100px);
+}
