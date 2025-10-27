@@ -3,6 +3,7 @@ import { Autoplay, Pagination } from "swiper";
 import { SwiperSlide, Swiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
+import { useWindowDimensions } from "@hooks/useWindowDimensions";
 
 export default function GallerySection() {
   const images = [
@@ -20,8 +21,14 @@ export default function GallerySection() {
     "/images/section_6_12.webp",
   ];
 
+  const { width, height } = useWindowDimensions();
+
+  if (width === 0) {
+  return null;
+}
+
   return (
-    <section className="section sectionScroll flex h-screen flex-col items-center justify-center">
+    <section className="section sectionScroll flex min-h-screen flex-col items-center justify-center">
       <h2 className="mb-10 text-center font-primary text-2xl font-bold">
         Một Số Hình Ảnh Khác
       </h2>
@@ -33,7 +40,7 @@ export default function GallerySection() {
           autoplay={{ delay: 5000, disableOnInteraction: false }}
           loop
           spaceBetween={20}
-          slidesPerView={4}
+          slidesPerView={width > 500 ? 4 : 1}
           className="pb-20"
         >
           {images.map((slide, index) => (

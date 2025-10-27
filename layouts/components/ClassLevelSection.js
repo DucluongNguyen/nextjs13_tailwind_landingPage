@@ -48,7 +48,7 @@ export default function ClassLevelSection() {
   useScrollReveal(".text-animation-section-5");
 
   return (
-    <section className="section sectionScroll flex h-screen flex-col items-center justify-center bg-theme-light">
+    <section className="section sectionScroll flex min-h-screen flex-col items-center justify-center bg-theme-light">
       {/* Title */}
       <div className="mb-12 text-center">
         <h2 className="text-animation-section-5 font-primary font-bold">

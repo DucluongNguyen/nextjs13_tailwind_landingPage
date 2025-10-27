@@ -38,7 +38,7 @@ export default function ReasonSection() {
   useScrollReveal(".text-animation-section-4");
 
   return (
-    <section className="section sectionScroll flex h-screen flex-col items-center justify-center">
+    <section className="section sectionScroll flex min-h-screen flex-col items-center justify-center">
       <div className="mx-auto mb-16 max-w-7xl text-center">
         <h2 className="text-animation-section-4 font-primary font-bold">
           Lý Do Phụ Huynh Nên Chọn <br />

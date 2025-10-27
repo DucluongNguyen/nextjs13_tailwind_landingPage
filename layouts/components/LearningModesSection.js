@@ -6,7 +6,7 @@ const LearningModesSection = () => {
   useScrollReveal(".text-animation-section-2");
 
   return (
-    <section id="learningMode" className="section sectionScroll flex h-screen flex-col justify-center bg-theme-light">
+    <section id="learningMode" className="section sectionScroll flex min-h-screen flex-col justify-center bg-theme-light">
       {/* Tiêu đề */}
       <h2 className="text-animation-section-2 mb-12 text-center font-primary font-bold">
         Hình Thức Học Linh Hoạt

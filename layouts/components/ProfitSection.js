@@ -28,7 +28,7 @@ export default function ProfitSection() {
   useScrollReveal(".text-animation-section-6");
 
   return (
-    <section className="section sectionScroll flex h-screen flex-col items-center justify-center ">
+    <section className="section sectionScroll flex min-h-screen flex-col items-center justify-center ">
       {/* Title */}
       <div className="mb-12 text-center">
         <h2 className="text-animation-section-6 font-primary font-bold">

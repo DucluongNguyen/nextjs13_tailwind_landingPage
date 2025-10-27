@@ -6,7 +6,7 @@ const ProblemSection = () => {
   useScrollReveal(".text-animation-section-3");
 
   return (
-    <section id="problem" className="section sectionScroll flex h-screen justify-center ">
+    <section id="problem" className="section sectionScroll flex min-h-screen justify-center ">
       <div className="flex w-full max-w-5xl flex-col justify-center text-center">
         {/* Tiêu đề */}
         <h2 className="text-animation-section-3 pb-7 font-primary font-bold">

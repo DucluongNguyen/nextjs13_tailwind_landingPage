@@ -12,18 +12,13 @@ import ProfitSection from "@layouts/components/ProfitSection";
 import ReasonSection from "@layouts/components/ReasonSection";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import "swiper/swiper.min.css";
 import { getListPage } from "../lib/contentParser";
-import useScrollReveal from "@hooks/useScrollReveal";
-import useToggleDialog from "@hooks/useToggleDialog";
-import { Commons } from "@layouts/components/commons";
 
 const Home = ({ frontmatter }) => {
   const { title } = config.site;
   const ref = useRef();
-  const { shouldRender, toggle, open } = useToggleDialog();
-
   const { contextSafe } = useGSAP(
     () => {
       const panels = gsap.utils.toArray(".sectionScroll");
@@ -68,11 +63,7 @@ const Home = ({ frontmatter }) => {
         <GallerySection />
 
         <ParentFeedback />
-        {shouldRender && (
-          <Commons.Modal open={open} onClose={toggle}>
-            Hello
-          </Commons.Modal>
-        )}
+       
       </div>
     </Base>
   );

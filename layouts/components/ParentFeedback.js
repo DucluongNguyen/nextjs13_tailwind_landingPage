@@ -26,7 +26,7 @@ export default function ParentFeedback() {
   useScrollReveal(".text-animation-section-9");
 
   return (
-    <section className="section sectionScroll flex h-screen flex-col items-center justify-center bg-theme-light">
+    <section className="section sectionScroll flex min-h-screen flex-col items-center justify-center bg-theme-light">
       <h2 className="text-animation-section-9 mb-12 font-primary font-bold">
         Phản Hồi Từ Phụ Huynh
       </h2>

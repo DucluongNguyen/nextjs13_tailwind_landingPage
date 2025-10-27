@@ -5,7 +5,7 @@ export default function CommitmentSection() {
   useScrollReveal(".text-animation-section-7");
 
   return (
-    <section id="commited" className="section sectionScroll flex h-screen flex-col items-center justify-center bg-theme-light">
+    <section id="commited" className="section sectionScroll flex min-h-screen flex-col items-center justify-center bg-theme-light">
       {/* Tiêu đề */}
       <h2 className="text-animation-section-7 text-center font-primary font-bold">
         Thầy Huy Cam Kết Đầu Ra
