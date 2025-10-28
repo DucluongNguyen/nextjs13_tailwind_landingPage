@@ -9,7 +9,10 @@ const MathCourseSection = () => {
 
   // !Render
   return (
-    <section id="home" className="section sectionScroll flex min-h-screen flex-col items-center bg-theme-light pt-28">
+    <section
+      id="home"
+      className="section sectionScroll flex min-h-screen flex-col items-center bg-theme-light pt-28"
+    >
       <div className="mb-12 flex w-full max-w-6xl flex-col items-center justify-between gap-8 md:flex-row">
         {/* Left Section */}
         <div className="flex-1">
@@ -37,7 +40,7 @@ const MathCourseSection = () => {
             />
           </div>
         </div> */}
-        <ImageAnimation src="/images/img_sec_1.webp" />
+        <ImageAnimation src="/images/thay_huy_toan.png" />
       </div>
 
       {/* Features Section */}

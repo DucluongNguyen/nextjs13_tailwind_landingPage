@@ -1,6 +1,9 @@
 import React from "react";
 import { CheckCircle } from "lucide-react";
 import useScrollReveal from "@hooks/useScrollReveal";
+import { Commons } from "./commons";
+import useToggleDialog from "@hooks/useToggleDialog";
+import RegisterForm from "./RegisterForm";
 
 const classLevels = [
   {
@@ -47,6 +50,8 @@ const classLevels = [
 export default function ClassLevelSection() {
   useScrollReveal(".text-animation-section-5");
 
+  const { shouldRender, open, toggle } = useToggleDialog();
+
   return (
     <section className="section sectionScroll flex min-h-screen flex-col items-center justify-center bg-theme-light">
       {/* Title */}
@@ -90,6 +95,7 @@ export default function ClassLevelSection() {
               </div>
               <button
                 className={`${level.buttonColor} mt-6 self-center rounded-full px-6 py-2 font-bold text-white transition hover:opacity-90`}
+                onClick={toggle}
               >
                 ĐĂNG KÝ
               </button>
@@ -97,6 +103,11 @@ export default function ClassLevelSection() {
           </div>
         ))}
       </div>
+      {shouldRender && (
+        <Commons.Modal open={open} onClose={toggle} title="Đăng ký tư vấn">
+          <RegisterForm toggle={toggle} />
+        </Commons.Modal>
+      )}
     </section>
   );
 }

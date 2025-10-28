@@ -1,19 +1,23 @@
 import useScrollReveal from "@hooks/useScrollReveal";
+import useToggleDialog from "@hooks/useToggleDialog";
 import { CheckCircle } from "lucide-react";
 
 export default function CommitmentSection() {
   useScrollReveal(".text-animation-section-7");
 
   return (
-    <section id="commited" className="section sectionScroll flex min-h-screen flex-col items-center justify-center bg-theme-light">
+    <section
+      id="commited"
+      className="section sectionScroll flex min-h-screen flex-col items-center justify-center bg-theme-light"
+    >
       {/* Tiêu đề */}
       <h2 className="text-animation-section-7 text-center font-primary font-bold">
         Thầy Huy Cam Kết Đầu Ra
       </h2>
 
       {/* Icon mũi tên xuống */}
-      <div className="mt-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#FFE6D6]">
-        <span className="text-2xl text-[#F7941D]">⬇️</span>
+      <div className="mt-4 flex h-20 w-20 items-center justify-center rounded-full bg-[#FFE6D6]">
+        <span className="text-4xl text-[#F7941D]">⬇️</span>
       </div>
 
       {/* Hộp nội dung */}

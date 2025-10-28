@@ -4,29 +4,11 @@ import menu from "@config/menu.json";
 import { useRegister } from "@hooks/useRegister";
 import useToggleDialog from "@hooks/useToggleDialog";
 import { Commons } from "@layouts/components/commons";
+import RegisterForm from "@layouts/components/RegisterForm";
 import { Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
-
-import * as Yup from "yup";
-
-const nameRegex = /^[\p{L}\s.'-]{2,100}$/u;
-const phoneRegex = /^(?:\+84|0)\d{9}$/;
-
-const schema = Yup.object({
-  username: Yup.string()
-    .trim()
-    .required("Vui lòng nhập họ và tên")
-    .matches(nameRegex, "Tên không hợp lệ")
-    .min(2)
-    .max(100),
-  phone: Yup.string()
-    .trim()
-    .required("Vui lòng nhập số điện thoại")
-    .matches(phoneRegex, "Số điện thoại không hợp lệ"),
-});
 
 const Header = () => {
   //router
@@ -42,21 +24,10 @@ const Header = () => {
   const { logo } = config.site;
   const { enable, label, link } = config.nav_button;
   const { shouldRender, open, toggle } = useToggleDialog();
-  const { mutateAsync: register, isPending } = useRegister();
-
-  const onRegister = async (values) => {
-    await register(values, {
-      onSuccess: () => {
-        toggle();
-        console.log("hello")
-        // toast.success({type:"success",})
-      },
-    });
-  };
 
   return (
-    <header className="header fixed z-10 w-full">
-      <nav className="navbar container">
+    <header className="header fixed z-10 w-full bg-[#188bf6]">
+      <nav className="navbar container ">
         {/* logo */}
         <div className="order-0">
           <Logo src={logo} />
@@ -93,7 +64,7 @@ const Header = () => {
         >
           <ul className="navbar-nav block w-full md:flex md:w-auto lg:space-x-2">
             {main.map((menu, i) => (
-              <React.Fragment key={`menu-${i}`} >
+              <React.Fragment key={`menu-${i}`}>
                 {menu.hasChildren ? (
                   <li className="nav-item nav-dropdown group relative">
                     <span className="nav-link inline-flex items-center">
@@ -122,8 +93,10 @@ const Header = () => {
                       // href={menu.url}
                       href={menu?.href}
                       onClick={() => setNavOpen(false)}
-                      className={`nav-link block ${
-                        router.asPath.includes(menu.href)  ? "nav-link-active" : ""
+                      className={`nav-link block text-xl   ${
+                        router.asPath.includes(menu.href)
+                          ? "nav-link-active"
+                          : "text-white"
                       }`}
                     >
                       {menu.name}
@@ -134,13 +107,15 @@ const Header = () => {
             ))}
             {enable && (
               <li className="md:hidden">
-                <Link
+                <button
                   className="btn btn-primary z-0 py-[14px]"
-                  href={link}
-                  rel=""
+                  onClick={toggle}
+
+                  // href={link}
+                  // rel=""
                 >
                   {label}
-                </Link>
+                </button>
               </li>
             )}
           </ul>
@@ -159,39 +134,7 @@ const Header = () => {
         )}
         {shouldRender && (
           <Commons.Modal open={open} onClose={toggle} title="Đăng ký tư vấn">
-            <Formik
-              initialValues={{
-                username: "",
-                phone: undefined,
-              }}
-              onSubmit={onRegister}
-              validationSchema={schema}
-            >
-              {({ handleSubmit }) => (
-                <Form>
-                  <Commons.Input
-                    name="username"
-                    label="Họ và tên"
-                    placeholder="Nhập họ và tên"
-                  />
-                  <Commons.Input
-                    name="phone"
-                    label="Số điện thoại"
-                    placeholder="Nhập số điện thoại"
-                  />
-                  <Commons.Button
-                    className="btn btn-primary w-full"
-                    onClick={() => {
-                      handleSubmit();
-                    }}
-                    loading={isPending}
-                    disabled={isPending}
-                  >
-                    Đăng ký tư vấn
-                  </Commons.Button>
-                </Form>
-              )}
-            </Formik>
+            <RegisterForm toggle={toggle} />
           </Commons.Modal>
         )}
       </nav>

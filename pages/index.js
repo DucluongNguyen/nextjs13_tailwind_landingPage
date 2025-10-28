@@ -19,29 +19,29 @@ import { getListPage } from "../lib/contentParser";
 const Home = ({ frontmatter }) => {
   const { title } = config.site;
   const ref = useRef();
-  const { contextSafe } = useGSAP(
-    () => {
-      const panels = gsap.utils.toArray(".sectionScroll");
+  // const { contextSafe } = useGSAP(
+  //   () => {
+  //     const panels = gsap.utils.toArray(".sectionScroll");
 
-      const totalHeight =
-        panels.length * window.innerHeight - window.innerHeight;
+  //     const totalHeight =
+  //       panels.length * window.innerHeight - window.innerHeight;
 
-      // Snap scroll theo từng panel
-      ScrollTrigger.create({
-        start: 0,
-        // end: "bottom top",
-        end: `+=${totalHeight}`,
-        snap: {
-          snapTo: 1 / (panels.length - 1),
-          duration: 3,
-          delay: 0.1,
-          ease: "power1.inOut",
-        },
-        pin: false,
-      });
-    },
-    { scope: ref }
-  );
+  //     // Snap scroll theo từng panel
+  //     ScrollTrigger.create({
+  //       start: 0,
+  //       // end: "bottom top",
+  //       end: `+=${totalHeight}`,
+  //       snap: {
+  //         snapTo: 1 / (panels.length - 1),
+  //         duration: 3,
+  //         delay: 0.1,
+  //         ease: "power1.inOut",
+  //       },
+  //       pin: false,
+  //     });
+  //   },
+  //   { scope: ref }
+  // );
 
   return (
     <Base title={title}>
@@ -63,7 +63,6 @@ const Home = ({ frontmatter }) => {
         <GallerySection />
 
         <ParentFeedback />
-       
       </div>
     </Base>
   );
