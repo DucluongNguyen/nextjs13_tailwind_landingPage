@@ -33,6 +33,17 @@ const Header = () => {
           <Logo src={logo} />
         </div>
 
+        <div className="order-2 flex cursor-pointer items-center md:order-1 md:hidden">
+          <button
+            className="btn btn-primary z-0 py-[14px]"
+            onClick={toggle}
+            // href={link}
+            // rel=""
+          >
+            {label}
+          </button>
+        </div>
+
         {/* navbar toggler */}
         <button
           id="show-button"
@@ -105,19 +116,16 @@ const Header = () => {
                 )}
               </React.Fragment>
             ))}
-            {enable && (
+            {/* {enable && (
               <li className="md:hidden">
                 <button
                   className="btn btn-primary z-0 py-[14px]"
                   onClick={toggle}
-
-                  // href={link}
-                  // rel=""
                 >
                   {label}
                 </button>
               </li>
-            )}
+            )} */}
           </ul>
         </div>
         {enable && (
