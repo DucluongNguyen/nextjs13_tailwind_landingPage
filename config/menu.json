@@ -1,24 +1,24 @@
 {
   "main": [
     {
-      "name": "Trang chủ",
+      "name": "TRANG CHỦ",
       "url": "/",
       "href":"#home"
 
     },
     {
-      "name": "Vấn đề",
+      "name": "VẤN ĐỀ",
       "url": "/blogs",
       "href":"#problem"
     },
     {
-      "name": "Hình thức học",
+      "name": "HÌNH THỨC HỌC",
       "url": "/pricing",
       "href":"#learningMode"
 
     },
     {
-      "name": "Cam kết",
+      "name": "CAM KẾT",
       "url": "/contact",
       "href":"#commited"
 

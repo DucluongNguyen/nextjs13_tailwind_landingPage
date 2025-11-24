@@ -91,7 +91,7 @@ const Base = ({
       </Head>
       <Header />
       {/* main site */}
-      <main className="w-full">{children}</main>
+      <main className="w-full pt-8 sm:pt-0 lg:pt-0">{children}</main>
       <Footer />
     </>
   );

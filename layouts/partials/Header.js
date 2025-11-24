@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <header className="header fixed z-10 w-full bg-[#188bf6]">
-      <nav className="navbar container ">
+      <nav className="navbar container  ">
         {/* logo */}
         <div className="order-0">
           <Logo src={logo} />
@@ -104,7 +104,7 @@ const Header = () => {
                       // href={menu.url}
                       href={menu?.href}
                       onClick={() => setNavOpen(false)}
-                      className={`nav-link block text-xl   ${
+                      className={`nav-link block text-2xl   ${
                         router.asPath.includes(menu.href)
                           ? "nav-link-active"
                           : "text-white"
@@ -131,7 +131,7 @@ const Header = () => {
         {enable && (
           <div className="d-flex order-1 ml-auto hidden min-w-[200px] items-center justify-end md:order-2 md:ml-0 md:flex">
             <button
-              className="btn btn-primary z-0 py-[14px]"
+              className="btn btn-primary z-0 py-[14px] text-xl"
               onClick={toggle}
               // href={link}
               // rel=""
