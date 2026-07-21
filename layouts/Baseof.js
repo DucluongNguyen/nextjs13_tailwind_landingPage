@@ -89,10 +89,15 @@ const Base = ({
         />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <Header />
-      {/* main site */}
-      <main className="w-full pt-8 sm:pt-0 lg:pt-0">{children}</main>
-      <Footer />
+      {/* flex-col + min-h-screen: đẩy footer luôn nằm dưới cùng màn hình dù
+          nội dung trang ngắn (VD: trang danh mục chưa có tài nguyên) —
+          main flex-1 chiếm hết khoảng trống còn lại, footer bị đẩy xuống đáy. */}
+      <div className="flex min-h-screen flex-col">
+        <Header />
+        {/* main site */}
+        <main className="w-full flex-1 pt-8 sm:pt-0 lg:pt-0">{children}</main>
+        <Footer />
+      </div>
     </>
   );
 };

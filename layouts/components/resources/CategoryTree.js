@@ -28,7 +28,7 @@ const CategoryNode = ({
   return (
     <li>
       <div
-        className={`group flex items-center gap-1 rounded-lg px-2 py-1.5 text-sm cursor-pointer ${
+        className={`group flex items-center gap-1 rounded-lg px-2 py-1.5 text-base font-medium cursor-pointer ${
           isSelected
             ? "bg-primary/10 font-semibold text-primary"
             : "hover:bg-gray-100"
@@ -56,7 +56,12 @@ const CategoryNode = ({
 
         <span
           className="flex flex-1 items-center gap-1.5 truncate"
-          onClick={() => onSelect?.(node)}
+          onClick={() => {
+            // Có danh mục con thì bấm vào tên cũng tự sổ/thu gọn luôn,
+            // không bắt buộc phải bấm đúng mũi tên mới mở được.
+            if (hasChildren) setOpen((prev) => !prev);
+            onSelect?.(node);
+          }}
         >
           {open && hasChildren ? (
             <FolderOpen size={16} className="shrink-0" />
