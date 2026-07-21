@@ -5,6 +5,11 @@ export default function Button({
   loading = false,
   disabled,
   className = "",
+  // Mặc định type="button" để tránh double-submit: các form trong dự án này
+  // đều tự gọi handleSubmit() qua onClick, nếu button nằm trong thẻ <form>
+  // (Formik <Form>) và không set type thì trình duyệt mặc định type="submit",
+  // khiến sự kiện submit gốc bắn thêm 1 lần → gọi API 2 lần liên tiếp.
+  type = "button",
   ...props
 }) {
   const base =
@@ -17,6 +22,7 @@ export default function Button({
 
   return (
     <button
+      type={type}
       {...props}
       disabled={disabled || loading}
       className={`${base} ${style} ${disabledStyle} ${className} px-6 py-2.5 text-base`}

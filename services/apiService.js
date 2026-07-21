@@ -19,3 +19,17 @@ export const deleteData = async (url) => {
   const response = await httpService.delete(url);
   return response.data;
 };
+
+// Dùng cho upload file (multipart/form-data), vd upload tài nguyên
+export const postFormData = async (url, formData) => {
+  const response = await httpService.post(url, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
+// Tải file nhị phân về (dùng cho nút "Tải về" tài nguyên)
+export const getBlob = async (url) => {
+  const response = await httpService.get(url, { responseType: "blob" });
+  return response;
+};

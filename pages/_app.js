@@ -11,6 +11,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "context/AuthContext";
 
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
@@ -54,6 +55,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <>
       <QueryClientProvider client={client}>
+        <AuthProvider>
         <Head>
           {/* google font css */}
           <link
@@ -87,6 +89,7 @@ const App = ({ Component, pageProps }) => {
         transition={Zoom}
       />
         <Component {...pageProps} />
+        </AuthProvider>
       </QueryClientProvider>
     </>
   );

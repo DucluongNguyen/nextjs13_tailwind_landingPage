@@ -1,13 +1,13 @@
 export const getErrorMsg = (error) => {
-  if (isArray(error?.response?.data?.message)) {
+  if (Array.isArray(error?.response?.data?.message)) {
     return error?.response?.data?.message.join(", ");
   }
 
-  if (isString(error?.response?.data?.error)) {
+  if (typeof error?.response?.data?.error === "string") {
     return error.response.data.error;
   }
 
-  if (isString(error?.response?.data?.error?.message)) {
+  if (typeof error?.response?.data?.error?.message === "string") {
     return error.response.data.error.message;
   }
 

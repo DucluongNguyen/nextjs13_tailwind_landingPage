@@ -3,24 +3,24 @@
     {
       "name": "TRANG CHỦ",
       "url": "/",
-      "href":"#home"
+      "href":"/#home"
 
     },
     {
       "name": "VẤN ĐỀ",
       "url": "/blogs",
-      "href":"#problem"
+      "href":"/#problem"
     },
     {
       "name": "HÌNH THỨC HỌC",
       "url": "/pricing",
-      "href":"#learningMode"
+      "href":"/#learningMode"
 
     },
     {
       "name": "CAM KẾT",
       "url": "/contact",
-      "href":"#commited"
+      "href":"/#commited"
 
     }
   ],

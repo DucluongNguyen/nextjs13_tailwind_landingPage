@@ -5,6 +5,7 @@ import { useRegister } from "@hooks/useRegister";
 import useToggleDialog from "@hooks/useToggleDialog";
 import { Commons } from "@layouts/components/commons";
 import RegisterForm from "@layouts/components/RegisterForm";
+import { useAuth } from "context/AuthContext";
 import { Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,6 +14,7 @@ import React, { useState } from "react";
 const Header = () => {
   //router
   const router = useRouter();
+  const { user, isAdmin, isAuthenticated, logout } = useAuth();
 
   // distructuring the main menu from menu object
   const { main } = menu;
@@ -27,15 +29,15 @@ const Header = () => {
 
   return (
     <header className="header fixed z-10 w-full bg-[#188bf6]">
-      <nav className="navbar container  ">
+      <nav className="navbar container lg:flex-nowrap">
         {/* logo */}
-        <div className="order-0">
+        <div className="order-0 shrink-0">
           <Logo src={logo} />
         </div>
 
-        <div className="order-2 flex cursor-pointer items-center md:order-1 md:hidden">
+        <div className="order-2 flex cursor-pointer items-center gap-2 lg:order-1 lg:hidden">
           <button
-            className="btn btn-primary z-0 py-[14px]"
+            className="btn btn-primary z-0 !px-4 !py-2 text-sm whitespace-nowrap"
             onClick={toggle}
             // href={link}
             // rel=""
@@ -47,7 +49,7 @@ const Header = () => {
         {/* navbar toggler */}
         <button
           id="show-button"
-          className="order-2 flex cursor-pointer items-center md:order-1 md:hidden"
+          className="order-2 flex cursor-pointer items-center lg:order-1 lg:hidden"
           onClick={() => setNavOpen(!navOpen)}
         >
           {navOpen ? (
@@ -69,11 +71,11 @@ const Header = () => {
         {/* Menu */}
         <div
           id="nav-menu"
-          className={`order-3 md:order-1 ${
+          className={`order-3 lg:order-1 ${
             navOpen ? "max-h-[1000px]" : "max-h-0"
           }`}
         >
-          <ul className="navbar-nav block w-full md:flex md:w-auto lg:space-x-2">
+          <ul className="navbar-nav block w-full lg:flex lg:w-auto lg:space-x-2">
             {main.map((menu, i) => (
               <React.Fragment key={`menu-${i}`}>
                 {menu.hasChildren ? (
@@ -104,7 +106,7 @@ const Header = () => {
                       // href={menu.url}
                       href={menu?.href}
                       onClick={() => setNavOpen(false)}
-                      className={`nav-link block text-2xl   ${
+                      className={`nav-link block whitespace-nowrap text-2xl lg:text-base   ${
                         router.asPath.includes(menu.href)
                           ? "nav-link-active"
                           : "text-white"
@@ -116,6 +118,64 @@ const Header = () => {
                 )}
               </React.Fragment>
             ))}
+            {/* Tài nguyên công khai — ai cũng xem được, không cần đăng nhập */}
+            <li className="nav-item">
+              <Link
+                href="/tai-nguyen"
+                onClick={() => setNavOpen(false)}
+                className={`nav-link block whitespace-nowrap text-2xl lg:text-base ${
+                  router.asPath.includes("/tai-nguyen") &&
+                  !router.asPath.includes("/admin")
+                    ? "nav-link-active"
+                    : "text-white"
+                }`}
+              >
+                TÀI NGUYÊN
+              </Link>
+            </li>
+            {isAdmin && (
+              <li className="nav-item">
+                <Link
+                  href="/admin/tai-nguyen"
+                  onClick={() => setNavOpen(false)}
+                  className={`nav-link block whitespace-nowrap text-2xl lg:text-base ${
+                    router.asPath.includes("/admin/tai-nguyen")
+                      ? "nav-link-active"
+                      : "text-white"
+                  }`}
+                >
+                  QUẢN TRỊ
+                </Link>
+              </li>
+            )}
+
+            {/* Đăng nhập/xuất — chỉ hiện trong menu sổ xuống ở mobile, bản desktop nằm ở khối riêng bên phải */}
+            <li className="nav-item border-t border-white/20 pt-2 lg:hidden">
+              {isAuthenticated ? (
+                <div className="flex items-center justify-between px-2 py-2">
+                  <span className="truncate text-lg text-white">
+                    Xin chào, {user?.name}
+                  </span>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setNavOpen(false);
+                    }}
+                    className="ml-3 shrink-0 rounded-full border border-white px-4 py-1.5 text-sm font-medium text-white"
+                  >
+                    Đăng xuất
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={() => setNavOpen(false)}
+                  className="nav-link block text-2xl text-white"
+                >
+                  Đăng nhập
+                </Link>
+              )}
+            </li>
             {/* {enable && (
               <li className="md:hidden">
                 <button
@@ -128,18 +188,41 @@ const Header = () => {
             )} */}
           </ul>
         </div>
-        {enable && (
-          <div className="d-flex order-1 ml-auto hidden min-w-[200px] items-center justify-end md:order-2 md:ml-0 md:flex">
+        <div className="d-flex order-1 ml-auto hidden shrink-0 items-center justify-end gap-2 lg:order-2 lg:ml-0 lg:flex lg:gap-3">
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2 lg:gap-3">
+              <span className="hidden max-w-[120px] truncate text-sm text-white xl:inline">
+                Xin chào, {user?.name}
+              </span>
+              <button
+                onClick={logout}
+                className="whitespace-nowrap rounded-full border border-white px-3 py-1.5 text-xs font-medium text-white hover:bg-white hover:text-[#188bf6] lg:px-4 lg:py-2 lg:text-sm"
+              >
+                Đăng xuất
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="whitespace-nowrap rounded-full border border-white px-3 py-1.5 text-xs font-medium text-white hover:bg-white hover:text-[#188bf6] lg:px-4 lg:py-2 lg:text-sm"
+            >
+              Đăng nhập
+            </Link>
+          )}
+
+          {/* CTA tư vấn chỉ dành cho khách chưa đăng nhập — ẩn đi khi đã có tài khoản
+              để nhường chỗ cho các link Tài nguyên/Quản trị trên thanh nav */}
+          {enable && !isAuthenticated && (
             <button
-              className="btn btn-primary z-0 py-[14px] text-xl"
+              className="btn btn-primary z-0 !px-4 !py-2 text-sm whitespace-nowrap lg:!px-6 lg:!py-2.5 lg:text-base"
               onClick={toggle}
               // href={link}
               // rel=""
             >
               {label}
             </button>
-          </div>
-        )}
+          )}
+        </div>
         {shouldRender && (
           <Commons.Modal open={open} onClose={toggle} title="Đăng ký tư vấn">
             <RegisterForm toggle={toggle} />
