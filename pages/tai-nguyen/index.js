@@ -22,7 +22,11 @@ const ResourcesPage = () => {
           </h1>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-[300px_1fr]">
-            <div>
+            {/* min-w-0: mặc định grid item không tự co dưới kích thước nội
+                dung (min-width: auto), khiến cây danh mục lồng sâu đẩy rộng
+                cả trang gây scroll ngang trên mobile. min-w-0 cho phép co lại
+                đúng theo track của grid để phần tên dài bên trong tự truncate. */}
+            <div className="min-w-0">
               {treeLoading ? (
                 <p className="text-sm text-gray-400">Đang tải danh mục...</p>
               ) : (
@@ -34,7 +38,7 @@ const ResourcesPage = () => {
               )}
             </div>
 
-            <div>
+            <div className="min-w-0">
               {!selected ? (
                 <div className="rounded-2xl border border-dashed border-gray-300 p-10 text-center text-sm text-gray-400">
                   Chọn 1 danh mục ở bên trái để xem tài nguyên.

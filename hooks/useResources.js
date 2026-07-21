@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { BASE_API_URL } from "const/api";
 import { getErrorMsg } from "helpers";
 import { toast } from "react-toastify";
 import {
@@ -76,11 +77,9 @@ export const downloadResource = async (id, fileName) => {
   }
 };
 
-// Lấy blob URL để xem PDF trực tiếp trong trang (endpoint /view trả về
-// inline thay vì attachment). Trình tự dùng: gọi hàm này lấy objectUrl,
-// gán vào <iframe src>, rồi nhớ gọi window.URL.revokeObjectURL khi đóng.
-export const getResourceViewUrl = async (id) => {
-  const response = await getBlob(`/resources/${id}/view`);
-  const blob = new Blob([response.data], { type: "application/pdf" });
-  return window.URL.createObjectURL(blob);
-};
+// URL file PDF thô (endpoint /view trả Content-Disposition: inline, công
+// khai không cần đăng nhập). Dùng làm "file" cho trang xem PDF (pdf.js tự
+// fetch và tự render từng trang theo đúng chiều rộng khung chứa) — không còn
+// dựa vào trình xem PDF gốc của trình duyệt nữa vì mỗi trình duyệt/mobile xử
+// lý toolbar, sidebar và zoom khác nhau, không ép fit-width nhất quán được.
+export const getResourceViewUrl = (id) => `${BASE_API_URL}/resources/${id}/view`;

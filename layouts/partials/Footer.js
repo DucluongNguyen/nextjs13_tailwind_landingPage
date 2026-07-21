@@ -30,12 +30,16 @@ const Footer = () => {
               </div>
             );
           })}
-          <div className="h-[200px] flex-1">
+          {/* min-w-0: item flex mặc định không tự co dưới kích thước nội
+              dung — iframe có width cố định 500 (px) trước đây làm cả khối
+              flex bị đẩy rộng hơn màn hình, gây scroll ngang trên mobile. */}
+          <div className="h-[200px] w-full min-w-0 flex-1">
             <iframe
               title="Google Map"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.268061682814!2d105.7816296!3d21.0438003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454caf3b69555%3A0x478f7435d131e046!2s30%20Ph%E1%BA%A1m%20V%C4%83n%20%C4%90%E1%BB%93ng%2C%20D%E1%BB%8Bch%20V%E1%BB%8Dng%20H%E1%BA%ADu%2C%20C%E1%BA%A7u%20Gi%E1%BA%A5y%2C%20H%C3%A0%20N%E1%BB%99i!5e0!3m2!1svi!2s!4v1730000000000!5m2!1svi!2s"
-              width="500"
+              width="100%"
               height="200"
+              className="h-full w-full"
               style={{ border: 0 }}
               allowFullScreen={false}
               loading="lazy"

@@ -15,9 +15,12 @@ const PdfViewerModal = ({ open, title, fileUrl, loading, onClose }) => {
           </div>
         ) : (
           <iframe
-            // navpanes=0: ẩn sẵn khung thumbnail/mục lục bên trái khi mở PDF
-            // (người dùng vẫn có thể tự bật lại qua nút menu ở toolbar)
-            src={`${fileUrl}#toolbar=1&navpanes=0`}
+            // navpanes=0: ẩn khung thumbnail bên trái.
+            // view=FitH: fit chiều rộng trang PDF theo khung xem — nếu không có
+            // tham số này, trình xem PDF mặc định zoom 100% theo kích thước thật
+            // của trang (vd khổ A4 ~ 816px), rộng hơn khung trên mobile nên bị
+            // cắt/khuất nội dung 2 bên thay vì tự co lại vừa màn hình.
+            src={`${fileUrl}#toolbar=1&navpanes=0&view=FitH`}
             title={title}
             className="h-full w-full rounded-lg border-0"
           />
