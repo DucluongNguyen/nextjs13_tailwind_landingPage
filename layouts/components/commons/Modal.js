@@ -11,9 +11,12 @@ export default function Modal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    // px-4 ở đây (thay vì mx-4 trên div con kết hợp w-full) — w-full + mx-4
+    // khiến div con rộng 100% + 2*margin, tràn ra ngoài viewport và gây
+    // scroll ngang toàn trang trên mobile khi mở modal.
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div
-        className={`w-full rounded-2xl bg-white shadow-xl ${width} relative mx-4`}
+        className={`w-full rounded-2xl bg-white shadow-xl ${width} relative max-h-[90vh] overflow-y-auto`}
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b p-4">
