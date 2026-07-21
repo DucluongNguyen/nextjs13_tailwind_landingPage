@@ -106,7 +106,7 @@ const AdminResourcesPage = () => {
               {selected && (
                 <div>
                   <h2 className="mb-3 text-lg font-semibold text-dark">
-                    Tài nguyên trong "{selected.name}"
+                    Tài nguyên trong &quot;{selected.name}&quot;
                   </h2>
                   {resourcesLoading ? (
                     <p className="text-sm text-gray-400">Đang tải...</p>
