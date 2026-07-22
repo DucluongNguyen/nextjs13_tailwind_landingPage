@@ -21,6 +21,16 @@ export const useResourcesByCategory = (categoryId) => {
   });
 };
 
+// Metadata 1 tài nguyên (title, mimeType, fileName...) — công khai. Trang xem
+// dùng để biết mimeType mà chọn render bằng pdf.js hay mammoth.
+export const useResourceById = (id) => {
+  return useQuery({
+    queryKey: ["resource", id],
+    queryFn: () => fetcher(`/resources/${id}`).then((res) => res.data),
+    enabled: !!id,
+  });
+};
+
 // Upload tài nguyên mới — chỉ admin
 export const useUploadResource = () => {
   const queryClient = useQueryClient();

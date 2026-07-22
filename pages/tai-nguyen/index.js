@@ -41,7 +41,7 @@ const ResourcesPage = () => {
             <div className="min-w-0">
               {!selected ? (
                 <div className="rounded-2xl border border-dashed border-gray-300 p-10 text-center text-sm text-gray-400">
-                  Chọn 1 danh mục ở bên trái để xem tài nguyên.
+                  Đánh thức đam mê - Chắp cánh ước mơ.
                 </div>
               ) : (
                 <>

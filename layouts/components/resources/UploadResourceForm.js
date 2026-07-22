@@ -10,10 +10,14 @@ const schema = Yup.object({
   title: Yup.string().trim().required("Vui lòng nhập tên tài nguyên"),
 });
 
-// Chỉ nhận PDF — để tài nguyên nào cũng xem trực tiếp được trên trình duyệt
-// bằng trình xem PDF gốc, không cần tải phần mềm khác.
-const ACCEPTED_EXT = ".pdf";
-const ACCEPTED_MIME = "application/pdf";
+// Nhận PDF và Word (.doc/.docx). PDF và .docx xem được trực tiếp trên trang
+// web (pdf.js / mammoth), .doc (định dạng cũ) chỉ tải về được.
+const ACCEPTED_EXT = ".pdf,.doc,.docx";
+const ACCEPTED_MIMES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
 
 // Form upload tài nguyên — chỉ hiển thị/khả dụng khi đã chọn 1 danh mục đích
 // (admin chọn node trên cây trước, rồi mới upload file vào node đó).
@@ -33,8 +37,8 @@ const UploadResourceForm = ({ category }) => {
     const file = fileInputRef.current?.files?.[0];
     if (!file) return;
 
-    if (file.type !== ACCEPTED_MIME) {
-      toast.error("Chỉ chấp nhận file PDF");
+    if (!ACCEPTED_MIMES.includes(file.type)) {
+      toast.error("Chỉ chấp nhận file PDF hoặc Word (.doc, .docx)");
       return;
     }
 
@@ -85,7 +89,7 @@ const UploadResourceForm = ({ category }) => {
                 className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
               />
               <span className="mt-1 text-xs text-gray-400">
-                Chỉ nhận file PDF — tối đa 50MB
+                Nhận file PDF hoặc Word (.doc, .docx) — tối đa 50MB
               </span>
             </div>
 

@@ -4,7 +4,13 @@ import { downloadResource } from "hooks/useResources";
 
 const ResourceRow = ({ resource, editable, onDelete }) => {
   const [downloading, setDownloading] = useState(false);
-  const isPdf = resource.mimeType === "application/pdf";
+  // Xem trực tiếp được: PDF (pdf.js) và .docx (mammoth). .doc cũ (nhị phân)
+  // không có cách xem tin cậy trên web nên chỉ cho tải về.
+  const VIEWABLE_MIMETYPES = [
+    "application/pdf",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+  const isViewable = VIEWABLE_MIMETYPES.includes(resource.mimeType);
 
   const handleDownload = async () => {
     setDownloading(true);
@@ -38,12 +44,10 @@ const ResourceRow = ({ resource, editable, onDelete }) => {
       </div>
 
       <div className="flex items-center gap-2 sm:ml-auto sm:shrink-0">
-        {isPdf && (
-          // Mở trang xem PDF tự dựng (pdf.js) ở tab mới thay vì trình xem PDF
-          // gốc của trình duyệt — trình xem gốc không cho kiểm soát ẩn khung
-          // thumbnail hay ép fit chiều rộng nhất quán giữa các trình duyệt
-          // mobile, còn render bằng pdf.js thì mỗi trang tự co đúng theo chiều
-          // rộng khung chứa, không có toolbar/sidebar nào ngoài tầm kiểm soát.
+        {isViewable && (
+          // Mở trang xem tự dựng ở tab mới: PDF -> pdf.js, .docx -> mammoth.
+          // Không dùng trình xem gốc của trình duyệt vì không kiểm soát được
+          // toolbar/sidebar/fit chiều rộng nhất quán giữa các trình duyệt mobile.
           <a
             href={`/tai-nguyen/xem/${resource.id}`}
             target="_blank"
@@ -88,7 +92,7 @@ const ResourceList = ({ resources = [], editable = false, onDelete }) => {
   if (resources.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-gray-300 p-8 text-center text-sm text-gray-400">
-        Chưa có tài nguyên nào trong danh mục này.
+        Đánh thức đam mê - Chắp cánh ước mơ.
       </div>
     );
   }
