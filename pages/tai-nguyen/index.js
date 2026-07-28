@@ -40,7 +40,7 @@ const ResourcesPage = () => {
 
             <div className="min-w-0">
               {!selected ? (
-                <div className="rounded-2xl border border-dashed border-gray-300 p-10 text-center text-3xl font-semibold text-gray-400">
+                <div className="rounded-2xl border border-dashed border-gray-300 p-10 text-center text-3xl font-semibold text-primary">
                   Đánh thức đam mê - Chắp cánh ước mơ.
                 </div>
               ) : (

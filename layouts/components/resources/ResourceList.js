@@ -91,7 +91,7 @@ const ResourceRow = ({ resource, editable, onDelete }) => {
 const ResourceList = ({ resources = [], editable = false, onDelete }) => {
   if (resources.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-gray-300 p-8 text-center text-3xl font-semibold text-gray-400">
+      <div className="rounded-2xl border border-dashed border-gray-300 p-8 text-center text-3xl font-semibold text-primary">
         Đánh thức đam mê - Chắp cánh ước mơ.
       </div>
     );
